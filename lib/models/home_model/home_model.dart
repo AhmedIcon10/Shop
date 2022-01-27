@@ -12,7 +12,7 @@ class HomeModel
 class HomeDataModel
 {
    late List <BannerModel> banners=[];
-  late List <ProductModel> products=[];
+  late List <ProductModel>  products=[];
   HomeDataModel.fromJson(Map<String, dynamic> json)
   {
     json['banners'].forEach((element){
@@ -36,13 +36,15 @@ class ProductModel
 {
   late int id;
   late dynamic price;
+  late String image;
   late dynamic oldPrice;
-  late String discount;
+  late int discount;
   late String name;
   late bool inFavorites;
   late bool inCart;
   ProductModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
+    image = json["image"];
     price = json['price'];
     oldPrice = json['old_price'];
     discount = json['discount'];

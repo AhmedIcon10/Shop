@@ -126,5 +126,11 @@ void printAllMessage(String text){
   final pattern = RegExp('.{1, 800}');
   pattern.allMatches(text).forEach((element) {print(element.group(0));});
 }
-
+Widget myDivider()=>Padding(
+  padding: const EdgeInsets.only(left: 5.0),
+  child:   Container(
+    color: Colors.grey,
+  width: double.infinity,
+  height: 1,),
+);
 //01000688404 mohamed nafea 3azb

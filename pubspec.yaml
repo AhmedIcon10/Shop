@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: ^8.0.8
   hexcolor: ^2.0.5
   carousel_slider: ^4.0.0
+  conditional_builder_null_safety: ^0.0.6
 
 dev_dependencies:
   flutter_test:
