@@ -55,10 +55,9 @@ class ShopCubit extends Cubit<ShopStates>
           token: token)
           .then((value) {
       homeModel = HomeModel.fromJson(value.data);
-      homeModel!.data.products.forEach((element)
-      {
+      for (var element in homeModel!.data.products) {
         favorites!.addAll({element.id : element.inFavorites});
-        print(favorites.toString()); }) ;
+        print(favorites.toString()); }
 
 
       printAllMessage(homeModel!.data.banners[0].toString());
@@ -81,17 +80,24 @@ class ShopCubit extends Cubit<ShopStates>
   }
   ChangeFavoritesModel? changeFavoritesModel;
   void changeFavorites(int productId){
+    favorites![productId] = !favorites![productId]!;
+    emit(ShopSuccessChangeFavoritesState());
     DioHelper.postData(
         url: FAVORITES,
-        data: {'product_id': productId},
-        token: token
-    )
-        .then((value) {
+        data: {
+          'product_id': productId
+        },
+        token: token,
+    ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
-      print(value.data);
+      print(value.data.toString());
+      if(!changeFavoritesModel!.status!){
+        favorites![productId]= !favorites![productId]!;
+      }
           emit(ShopSuccessChangeFavoritesState());
     })
         .catchError((error){
+      favorites![productId]= !favorites![productId]!;
       emit(ShopErrorChangeFavoritesState(error.toString()));
     });
   }

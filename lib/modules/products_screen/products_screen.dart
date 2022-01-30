@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shop_app/models/categories_model/categories_model.dart';
 import 'package:shop_app/models/home_model/home_model.dart';
 import 'package:shop_app/shared/constants.dart';
@@ -22,8 +23,9 @@ class ProductsScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = ShopCubit.get(context);
         return ConditionalBuilder(
-            condition: cubit.homeModel != null&& cubit.categoriesModel != null,
-            builder: (context) => productsBuilder(cubit.homeModel, cubit.categoriesModel, context),
+            condition: cubit.homeModel != null && cubit.categoriesModel != null,
+            builder: (context) => productsBuilder(
+                cubit.homeModel, cubit.categoriesModel, context),
             fallback: (context) => const Center(
                   child: CircularProgressIndicator(),
                 ));
@@ -32,29 +34,34 @@ class ProductsScreen extends StatelessWidget {
   }
 }
 
-Widget productsBuilder(HomeModel? model, CategoriesModel? categoriesModel, context) => SingleChildScrollView(
+Widget productsBuilder(
+        HomeModel? model, CategoriesModel? categoriesModel, context) =>
+    SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CarouselSlider(
-              items: model!.data.banners
-                  .map((e) => Image(
-                        image: NetworkImage(e.image),
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ))
-                  .toList(),
-              options: CarouselOptions(
-                scrollDirection: Axis.horizontal,
-                autoPlay: true,
-                autoPlayAnimationDuration: const Duration(seconds: 1),
-                autoPlayInterval: const Duration(seconds: 3),
-                height: 180.0,
-                initialPage: 0,
-                reverse: false,
-                viewportFraction: 1.0,
-              )),
+          InkWell(
+            onTap: () {},
+            child: CarouselSlider(
+                items: model!.data.banners
+                    .map((e) => Image(
+                          image: NetworkImage(e.image),
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        ))
+                    .toList(),
+                options: CarouselOptions(
+                  scrollDirection: Axis.horizontal,
+                  autoPlay: true,
+                  autoPlayAnimationDuration: const Duration(seconds: 1),
+                  autoPlayInterval: const Duration(seconds: 3),
+                  height: 180.0,
+                  initialPage: 0,
+                  reverse: false,
+                  viewportFraction: 1.0,
+                )),
+          ),
           const SizedBox(
             height: 10.0,
           ),
@@ -67,27 +74,34 @@ Widget productsBuilder(HomeModel? model, CategoriesModel? categoriesModel, conte
                   'Categories',
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.white,
+                      color: defaultColor,
                       fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
-                  color: Colors.white,
+                  color: HexColor("#282828"),
                   height: 100.0,
                   child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemBuilder: (context,index)=>buildCategory(categoriesModel!.data.data[index]),
-                      separatorBuilder: (context, index)=>const SizedBox(width: 10.0,),
+                      itemBuilder: (context, index) =>
+                          buildCategory(categoriesModel!.data.data[index]),
+                      separatorBuilder: (context, index) => const SizedBox(
+                            width: 10.0,
+                          ),
                       itemCount: categoriesModel!.data.data.length),
                 ),
-                const SizedBox(height: 25,),
+                const SizedBox(
+                  height: 25,
+                ),
                 const Text(
                   'New Products',
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.white,
+                      color: defaultColor,
                       fontWeight: FontWeight.w600),
                 ),
               ],
@@ -105,124 +119,136 @@ Widget productsBuilder(HomeModel? model, CategoriesModel? categoriesModel, conte
               mainAxisSpacing: 1.0,
               crossAxisSpacing: 1.0,
               childAspectRatio: 1 / 1.65,
-              children: List.generate(model.data.products.length,
-                  (index) => buildGridProduct(model.data.products[index], context)),
+              children: List.generate(
+                  model.data.products.length,
+                  (index) =>
+                      buildGridProduct(model.data.products[index], context)),
             ),
           ),
         ],
       ),
     );
 
-Widget buildGridProduct(ProductModel model, context) => Container(
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Image(
-                image: NetworkImage(model.image),
-                width: double.infinity,
-                height: 200.0,
-              ),
-              if (model.discount != 0)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  color: Colors.red,
-                  child: const Text(
-                    'DISCOUNT',
-                    style:
-                        TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600),
-                  ),
+Widget buildGridProduct(ProductModel model, context) => InkWell(
+      onTap: () {},
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                Image(
+                  image: NetworkImage(model.image),
+                  width: double.infinity,
+                  height: 200.0,
                 ),
-            ],
-          ),
-          Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    model.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(height: 1.3, fontSize: 14),
-                  ),
+                if (model.discount != 0)
                   Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3),
-                      child: Row(
-                        children: [
-                          Text(
-                            model.price.round().toString(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          if (model.discount != 0)
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    color: Colors.red,
+                    child: const Text(
+                      'DISCOUNT',
+                      style: TextStyle(
+                          fontSize: 10.0, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+              ],
+            ),
+            Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      model.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(height: 1.3, fontSize: 14),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Row(
+                          children: [
                             Text(
-                              model.oldPrice.round().toString(),
+                              model.price.round().toString(),
                               style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
+                                fontSize: 16,
+                                color: Colors.blue,
                               ),
                             ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              ShopCubit.get(context).changeFavorites(model.id);
-                              print(model.id);
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            if (model.discount != 0)
+                              Text(
+                                model.oldPrice.round().toString(),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                ShopCubit.get(context)
+                                    .changeFavorites(model.id);
 
-                            },
-                            icon: CircleAvatar(
-                              radius: 15,
-                              backgroundColor: ShopCubit.get(context).favorites![model.id]! ? defaultColor  : Colors.grey,
-                                child: const Icon(
-                                  Icons.favorite_outline,
-                                  color: Colors.white,)),
-                            iconSize: 26,
-                          ),
-                        ],
+                                print(model.id);
+                              },
+                              icon: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: ShopCubit.get(context)
+                                          .favorites![model.id]!
+                                      ? defaultColor
+                                      : Colors.grey,
+                                  child: const Icon(
+                                    Icons.favorite_outline,
+                                    color: Colors.white,
+                                  )),
+                              iconSize: 26,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              )),
-        ],
+                    )
+                  ],
+                )),
+          ],
+        ),
       ),
     );
-Widget buildCategory(DataModel? model) => Stack(
-  alignment: AlignmentDirectional.bottomCenter,
-      children: [
-         Image(
-          image: NetworkImage(
-              model!.image),
-          width: 100.0,
-          height: 100.0,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          color: Colors.black.withOpacity(.8),
-          width: 100.0,
-          child:  Text(
-            model.name,
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-
-              overflow: TextOverflow.ellipsis,
+Widget buildCategory(DataModel? model) => InkWell(
+      onTap: () {},
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          Image(
+            image: NetworkImage(model!.image),
+            width: 100.0,
+            height: 100.0,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            color: Colors.black.withOpacity(.8),
+            width: 100.0,
+            child: Text(
+              model.name,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );

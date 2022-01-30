@@ -21,10 +21,10 @@ void main(context) async{
           await CacheHelper.init();
           DioHelper.init();
           String? token =  CacheHelper.getData(key: 'token') ;
-          bool onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
+          bool? onBoarding = await CacheHelper.getData(key: 'onBoarding');
           Widget widget;
 
-          print(token);
+          print("the token is \'${token}\'");
           if(onBoarding != null){
             if(token != null) {
               widget = const ShopLayout();

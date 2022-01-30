@@ -10,33 +10,45 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit,ShopStates>( listener: (context, state){},
-      builder: (context, state){
-      var cubit = ShopCubit.get(context);
-      return ListView.separated(
-        physics: const BouncingScrollPhysics(),
-          itemBuilder: (context,index)=> categoryItem(cubit.categoriesModel!.data.data[index]),
-          separatorBuilder: (context, index)=>myDivider(),
-          itemCount: cubit.categoriesModel!.data.data.length);
-      },);
-
+    return BlocConsumer<ShopCubit, ShopStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = ShopCubit.get(context);
+        return ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) =>
+                categoryItem(cubit.categoriesModel!.data.data[index]),
+            separatorBuilder: (context, index) => myDivider(),
+            itemCount: cubit.categoriesModel!.data.data.length);
+      },
+    );
   }
 }
-Widget categoryItem(DataModel? model)=>Padding(
-  padding: const EdgeInsets.all(20.0),
-  child: Row(
-    children: [
-      Image(image: NetworkImage(model!.image),
-        height: 80.0,
-        width: 80.0,
-        fit: BoxFit.cover,),
-      const SizedBox(width: 20.0,),
-      Text(model.name,
-        style: const TextStyle(fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-        color: Colors.white),),
-      const Spacer(),
-      IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward_ios,color: Colors.white,),),
-    ],
-  ),
-);
+
+Widget categoryItem(DataModel? model) => InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Image(
+              image: NetworkImage(model!.image),
+              height: 90.0,
+              width: 90.0,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Text(
+              model.name,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
+                  color: Colors.white),
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );

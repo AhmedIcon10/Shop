@@ -21,7 +21,9 @@ class ShopLayout extends StatelessWidget {
             IconButton(onPressed: (){
               navigateTo(context, const SearchScreen());
             }, icon: const Icon(Icons.search)),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.light_mode)),
+            IconButton(onPressed: (){
+              signOut(context);
+            }, icon: const Icon(Icons.logout)),
           ],
           ),
           body: cubit.shopScreens[cubit.currentIndex],
