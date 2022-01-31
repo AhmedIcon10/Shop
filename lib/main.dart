@@ -21,10 +21,11 @@ void main(context) async{
           await CacheHelper.init();
           DioHelper.init();
           String? token =  CacheHelper.getData(key: 'token') ;
-          bool? onBoarding = await CacheHelper.getData(key: 'onBoarding');
+          bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+          bool isDark = CacheHelper.getData(key: 'isDark');
           Widget widget;
 
-          print("the token is \'${token}\'");
+          print("the token is : $token");
           if(onBoarding != null){
             if(token != null) {
               widget = const ShopLayout();
@@ -34,7 +35,7 @@ void main(context) async{
           }else{
             widget = const OnBoardingScreen();
           }
-          runApp(MyApp(onBoard: onBoarding,startWidget: widget,));
+          runApp(MyApp(onBoard: onBoarding,startWidget: widget,isDark: isDark,));
 
     },
     blocObserver: MyBlocObserver(),
@@ -43,9 +44,10 @@ void main(context) async{
 
 class MyApp extends StatelessWidget {
   final bool? onBoard;
+  final bool? isDark;
   final Widget? startWidget;
 
- const MyApp({Key? key, this.onBoard, this.startWidget,}) : super(key: key);
+ const MyApp({Key? key, this.onBoard, this.startWidget, this.isDark,}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -53,6 +55,7 @@ class MyApp extends StatelessWidget {
     return   MultiBlocProvider(
       providers: [
         BlocProvider(create: (context)=>ShopCubit()..getHomeData()..getCategories()
+          ..changeAppMode(fromShared: isDark)..getFavorites()
         ),
         BlocProvider(create: (context)=>ShopLoginCubit()),
       ],
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
             home: startWidget,
             theme: appLightTheme,
             darkTheme: appDarkTheme,
-            themeMode: ThemeMode.dark,
+            themeMode: ShopCubit.get(context).isDark ? ThemeMode.dark: ThemeMode.light,
           );
         },
       ),
