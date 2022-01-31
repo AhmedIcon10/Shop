@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/modules/login_screen/login_screen.dart';
+import 'package:shop_app/shared/constants.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 void navigateTo(context, widget) => Navigator.push(
@@ -15,7 +16,7 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
 Widget defaultButton({
   double? width = double.infinity,
   double? height = 50.0,
-  Color? background = Colors.blue,
+  Color? background = defaultColor,
   bool isUpperCase = false,
   required String buttonText,
   double? textSize = 24.0,
@@ -66,6 +67,7 @@ Widget customFormField({
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: label,
+        fillColor: Colors.white,
         prefixIcon: Icon(prefix),
         suffixIcon: IconButton(
           icon: Icon(suffix),
@@ -126,5 +128,11 @@ void printAllMessage(String text){
   final pattern = RegExp('.{1, 800}');
   pattern.allMatches(text).forEach((element) {print(element.group(0));});
 }
-
+Widget myDivider()=>Padding(
+  padding: const EdgeInsets.only(left: 5.0),
+  child:   Container(
+    color: Colors.grey,
+  width: double.infinity,
+  height: 1,),
+);
 //01000688404 mohamed nafea 3azb

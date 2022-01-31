@@ -9,7 +9,6 @@ import 'package:shop_app/shared/app_themes.dart';
 import 'package:shop_app/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/shop_cubit/shop_states.dart';
 
-import 'models/home_model/home_model.dart';
 import 'shared/bloc_observer.dart';
 import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -21,9 +20,11 @@ void main(context) async{
       // Use cubits...
           await CacheHelper.init();
           DioHelper.init();
-          bool onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
+          String? token =  CacheHelper.getData(key: 'token') ;
+          bool? onBoarding = await CacheHelper.getData(key: 'onBoarding');
           Widget widget;
-          String token =  CacheHelper.getData(key: 'token') ?? '';
+
+          print("the token is \'${token}\'");
           if(onBoarding != null){
             if(token != null) {
               widget = const ShopLayout();
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return   MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>ShopCubit()..getHomeData()
+        BlocProvider(create: (context)=>ShopCubit()..getHomeData()..getCategories()
         ),
         BlocProvider(create: (context)=>ShopLoginCubit()),
       ],

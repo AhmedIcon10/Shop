@@ -8,3 +8,15 @@ class ShopHomeDataErrorState extends ShopStates{
 
   ShopHomeDataErrorState(this.error);
 }
+class ShopSuccessCategoriesState extends ShopStates{}
+class ShopErrorCategoriesState extends ShopStates{
+  final String error;
+
+  ShopErrorCategoriesState(this.error);
+}
+class ShopSuccessChangeFavoritesState extends ShopStates{}
+class ShopErrorChangeFavoritesState extends ShopStates{
+  final String error;
+
+  ShopErrorChangeFavoritesState(this.error);
+}

@@ -34,14 +34,13 @@ ThemeData appLightTheme = ThemeData(
 ThemeData appDarkTheme = ThemeData(
   primarySwatch: Colors.cyan,
   primaryColor: defaultColor,
-  scaffoldBackgroundColor: HexColor("#121212"),
+  scaffoldBackgroundColor: HexColor("#282828"),
   appBarTheme: AppBarTheme(
-    
     centerTitle: true,
     color: HexColor("#121212"),
     elevation: 10.0,
-    iconTheme: IconThemeData(color: defaultColor),
-    titleTextStyle:  TextStyle(
+    iconTheme: const IconThemeData(color: defaultColor),
+    titleTextStyle: const TextStyle(
       color: defaultColor,
       fontSize: 22.0,
       fontWeight: FontWeight.bold,
@@ -57,7 +56,7 @@ ThemeData appDarkTheme = ThemeData(
     type: BottomNavigationBarType.fixed,
     backgroundColor: HexColor("#121212"),
     selectedItemColor: defaultColor,
-    unselectedItemColor:Colors.white24,),
+    unselectedItemColor:Colors.white70,),
   textTheme: const TextTheme(
     bodyText1: TextStyle(
       color: Colors.white,
@@ -67,6 +66,6 @@ ThemeData appDarkTheme = ThemeData(
 
     ),
   ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: defaultColor),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: defaultColor,),
 );

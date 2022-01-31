@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
 
-Color defaultColor = Colors.cyan;
-String token = '';
+const Color defaultColor = Color(0xff00afff);
+String? token;
+String? name;
