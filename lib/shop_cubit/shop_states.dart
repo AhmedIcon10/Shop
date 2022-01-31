@@ -33,3 +33,4 @@ class GetFavoritesErrorState extends ShopStates{
   final String error;
   GetFavoritesErrorState(this.error);
 }
+class NotUsed extends ShopStates{}

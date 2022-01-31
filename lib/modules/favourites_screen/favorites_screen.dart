@@ -23,7 +23,7 @@ class FavoritesScreen extends StatelessWidget {
                   favoritesItem(cubit.favoritesModel!.data!.data[index], context),
               separatorBuilder: (context, index) => myDivider(),
               itemCount: cubit.favoritesModel!.data!.data.length),
-          fallback:(context)=> const Center(child: CircularProgressIndicator(),),
+          fallback:(context) => const Center(child: CircularProgressIndicator(),),
         );
       },
     );
