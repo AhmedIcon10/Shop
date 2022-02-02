@@ -10,14 +10,14 @@ class ShopLoginModel {
   }
 }
 class UserData {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? image;
-  int? points;
-  int? credit;
-  String? token;
+  late int id;
+  late String name;
+  late String email;
+  late String phone;
+  late String image;
+  late int points;
+  late int credit;
+  late String token;
 
   UserData.fromJson(Map<String, dynamic> json)
   {

@@ -1,11 +1,9 @@
 class HomeModel
 {
   late bool status;
-  String? message;
   late HomeDataModel data;
   HomeModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    message = json['message'];
     data = HomeDataModel.fromJson(json['data']);
   }
 }

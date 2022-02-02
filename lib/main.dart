@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
     return   MultiBlocProvider(
       providers: [
         BlocProvider(create: (context)=>ShopCubit()..getHomeData()..getCategories()
-          ..changeAppMode(fromShared: isDark)..getFavorites()
+          ..changeAppMode(fromShared: isDark)..getFavorites()..getUserData()
         ),
         BlocProvider(create: (context)=>ShopLoginCubit()),
       ],
