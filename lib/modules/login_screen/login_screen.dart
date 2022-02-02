@@ -7,6 +7,7 @@ import 'package:shop_app/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_app/modules/login_screen/cubit/states.dart';
 import 'package:shop_app/modules/register_screen/register_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/constants.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -23,7 +24,9 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if(state is ShopLoginSuccessState){
             if(state.loginModel.status){
-             CacheHelper.saveData(key: 'token', value: state.loginModel.data!.token).then((value) {
+             CacheHelper.saveData(key: 'token', value: state.loginModel.data!.token)
+                 .then((value) {
+                   token = state.loginModel.data!.token;
                navigateAndFinish(context, const ShopLayout());
              });
               print(state.loginModel.data!.token);
@@ -51,6 +54,7 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 34.0,
                             fontWeight: FontWeight.bold,
+                            color: defaultColor
                           ),
                         ),
                         const SizedBox(
@@ -76,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                                 return 'email address must not be empty';
                               }
                             },
-                            label: 'email address',
+                            label: 'Email address',
                             prefix: Icons.email_outlined),
                         const SizedBox(
                           height: 15.0,
@@ -87,10 +91,10 @@ class LoginScreen extends StatelessWidget {
                             type: TextInputType.visiblePassword,
                             validate: (value) {
                               if (value.toString().isEmpty) {
-                                return 'password is too short';
+                                return 'Password is too short';
                               }
                             },
-                            label: 'password',
+                            label: 'Password',
                             prefix: Icons.lock_outline,
                             suffix: cubit.suffix,
                             onPressed: () {
@@ -102,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                         defaultButton(
                             buttonText: 'login',
                             isUpperCase: true,
-                            textSize: 16,
+                            textSize: 18,
                             onPressed: () {
                               if (state is! ShopLoginLoadingState) {
                                 if (formKey.currentState!.validate()) {
@@ -124,7 +128,8 @@ class LoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text('Don\'t have an account?', style: TextStyle(
-                              color:Colors.white,
+                              color:Colors.black,
+                              fontWeight: FontWeight.bold
                             ),),
                             defaultTextButton(
                               text: 'register',

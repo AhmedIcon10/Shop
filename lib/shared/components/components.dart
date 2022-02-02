@@ -52,7 +52,7 @@ Widget customFormField({
   IconData? suffix,
   VoidCallback? onPressed,
   GestureTapCallback? onTap,
-  bool isPassword = true,
+  bool isPassword = false,
   bool isClickable = true,
 }) =>
     TextFormField(
@@ -79,7 +79,8 @@ Widget defaultTextButton({
   required VoidCallback onPressed,
   required String text,
   Color? color
-})=>TextButton(onPressed: onPressed,
+})=>TextButton(
+    onPressed: onPressed,
 child: Text(text.toUpperCase(),
 style: TextStyle(
   fontWeight: FontWeight.bold,

@@ -6,9 +6,9 @@ import 'constants.dart';
 
 ThemeData appLightTheme = ThemeData(
   primaryColor: defaultColor,
-  primarySwatch: Colors.deepPurple,
+  primarySwatch: Colors.cyan,
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme:  AppBarTheme(
+  appBarTheme:  const AppBarTheme(
     centerTitle: true,
     color: Colors.white,
     elevation: 0.0,
@@ -19,16 +19,24 @@ ThemeData appLightTheme = ThemeData(
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
     ),
-    systemOverlayStyle: const SystemUiOverlayStyle(
+    systemOverlayStyle:  SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarBrightness: Brightness.dark,
     ),
 
   ),
-  bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+      fontSize: 20.0,
+      overflow: TextOverflow.ellipsis
+    ),
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: defaultColor),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: defaultColor),
 );
 ThemeData appDarkTheme = ThemeData(
@@ -60,7 +68,7 @@ ThemeData appDarkTheme = ThemeData(
   textTheme: const TextTheme(
     bodyText1: TextStyle(
       color: Colors.white,
-      fontSize: 18,
+      fontSize: 20.0,
       fontWeight: FontWeight.w600,
       overflow: TextOverflow.ellipsis,
 

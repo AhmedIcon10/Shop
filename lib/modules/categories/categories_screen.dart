@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/categories_model/categories_model.dart';
@@ -17,7 +18,7 @@ class CategoriesScreen extends StatelessWidget {
         return ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) =>
-                categoryItem(cubit.categoriesModel!.data.data[index]),
+                categoryItem(cubit.categoriesModel!.data.data[index], context),
             separatorBuilder: (context, index) => myDivider(),
             itemCount: cubit.categoriesModel!.data.data.length);
       },
@@ -25,7 +26,7 @@ class CategoriesScreen extends StatelessWidget {
   }
 }
 
-Widget categoryItem(DataModel? model) => InkWell(
+Widget categoryItem(DataModel? model, context) => InkWell(
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -38,16 +39,13 @@ Widget categoryItem(DataModel? model) => InkWell(
               fit: BoxFit.cover,
             ),
             const SizedBox(
-              width: 20.0,
+              width: 40.0,
             ),
             Text(
               model.name,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.0,
-                  color: Colors.white),
+              style:  Theme.of(context).textTheme.bodyText1,
             ),
-            const Spacer(),
+
           ],
         ),
       ),
