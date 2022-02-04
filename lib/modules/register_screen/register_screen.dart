@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
               print(state.loginModel.data!.token);
             }
             else{
-             showToast(text: state.loginModel.message, state: ToastsStates.ERROR);
+             showToast(text: state.loginModel.message!, state: ToastsStates.ERROR);
 
             }
           }

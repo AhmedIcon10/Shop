@@ -21,7 +21,7 @@ class FavoritesScreen extends StatelessWidget {
           builder: (context)=> ListView.separated(
             physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) =>
-                  favoritesItem(cubit.favoritesModel!.data!.data[index], context),
+                  favoritesItem(cubit.favoritesModel!.data!.data[index].productData!, context),
               separatorBuilder: (context, index) => myDivider(),
               itemCount: cubit.favoritesModel!.data!.data.length),
           fallback:(context) => const Center(child: CircularProgressIndicator(),),
@@ -31,7 +31,7 @@ class FavoritesScreen extends StatelessWidget {
   }
 }
 
-Widget favoritesItem(FavoritesData model, context) => Padding(
+Widget favoritesItem(model, context) => Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         color: Colors.white,
@@ -44,12 +44,12 @@ Widget favoritesItem(FavoritesData model, context) => Padding(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Image(
-                    image: NetworkImage(model.productData!.image),
+                    image: NetworkImage(model.image),
                     width: 120.0,
                     height: 120.0,
                     fit: BoxFit.fill,
                   ),
-                  if (model.productData!.discount != 0)
+                  if (model.discount != 0)
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       color: Colors.red,
@@ -69,7 +69,7 @@ Widget favoritesItem(FavoritesData model, context) => Padding(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.productData!.name,
+                        model.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(height: 1.3, fontSize: 14),
@@ -83,7 +83,7 @@ Widget favoritesItem(FavoritesData model, context) => Padding(
                           child: Row(
                             children: [
                               Text(
-                                model.productData!.price.round().toString(),
+                                model.price.round().toString(),
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.blue,
@@ -92,9 +92,9 @@ Widget favoritesItem(FavoritesData model, context) => Padding(
                               const SizedBox(
                                 width: 5.0,
                               ),
-                              if (model.productData!.oldPrice != 0)
+                              if (model.oldPrice != 0)
                                 Text(
-                                  model.productData!.oldPrice
+                                  model.oldPrice
                                       .round()
                                       .toString(),
                                   style: const TextStyle(
@@ -106,14 +106,14 @@ Widget favoritesItem(FavoritesData model, context) => Padding(
                               IconButton(
                                 onPressed: () {
                                   ShopCubit.get(context)
-                                      .changeFavorites(model.productData!.id);
+                                      .changeFavorites(model.id);
 
                                   print(model.id);
                                 },
                                 icon: CircleAvatar(
                                     radius: 15,
                                     backgroundColor: ShopCubit.get(context)
-                                            .favorites![model.productData!.id]!
+                                            .favorites![model.id]!
                                         ? defaultColor
                                         : Colors.grey,
                                     child: const Icon(

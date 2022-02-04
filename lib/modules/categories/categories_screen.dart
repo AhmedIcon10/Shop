@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/categories_model/categories_model.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/constants.dart';
 import 'package:shop_app/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/shop_cubit/shop_states.dart';
 
@@ -27,6 +28,7 @@ class CategoriesScreen extends StatelessWidget {
 }
 
 Widget categoryItem(DataModel? model, context) => InkWell(
+  highlightColor: defaultColor,
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(20.0),

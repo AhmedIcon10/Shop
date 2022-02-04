@@ -22,7 +22,7 @@ class ShopLayout extends StatelessWidget {
             title: const Text('My Shop'),
           actions: [
             IconButton(onPressed: (){
-              navigateTo(context, const SearchScreen());
+              navigateTo(context, SearchScreen());
             }, icon: const Icon(Icons.search)),
             IconButton(onPressed: (){
               signOut(context);

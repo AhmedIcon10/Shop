@@ -1,6 +1,6 @@
 class ShopLoginModel {
   late bool status;
-  late String message;
+  String? message;
   UserData? data;
   ShopLoginModel.fromJson(Map<String, dynamic> json)
   {

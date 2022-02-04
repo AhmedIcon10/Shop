@@ -49,6 +49,7 @@ Widget productsBuilder(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
+            highlightColor: defaultColor,
             onTap: () {},
             child: CarouselSlider(
                 items: model!.data.banners

@@ -119,7 +119,9 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ShopLoginModel? userModel;
   void getUserData() {
-    DioHelper.getData(url: PROFILE, token: token).then((value) {
+    DioHelper.getData(
+        url: PROFILE,
+        token: token).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
       printAllMessage(userModel!.data.toString());
       emit(ShopSuccessUserDataState(userModel!));

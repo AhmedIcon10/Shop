@@ -1,9 +1,10 @@
 class GetFavoritesModel{
 late bool status;
-
+String? message;
 Data?data;
 GetFavoritesModel.fromJson(Map<String, dynamic>json){
   status = json['status'];
+  message = json['message'];
   data = json['data'] != null ? Data.fromJson(json['data']): null;
 
 }
@@ -24,7 +25,7 @@ class FavoritesData{
   ProductData? productData;
   FavoritesData.fromJson(Map<String, dynamic>json){
     id = json['id'];
-    productData = json['product'] != null ?ProductData.fromJson(json['product']): null;
+    productData = json['product'] != null ? ProductData.fromJson(json['product']): null;
   }
 }
 class ProductData{
